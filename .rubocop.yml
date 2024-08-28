@@ -1,0 +1,119 @@
+require:
+  - rubocop-performance
+  - rubocop-rails
+  - rubocop-rspec
+
+AllCops:
+  SuggestExtensions: false
+  NewCops: enable
+
+# Styles
+
+Style/StringLiterals:
+  Enabled: true
+  EnforcedStyle: double_quotes
+
+Style/Documentation:
+  Enabled: false
+
+Style/NegatedIf:
+  Enabled: false
+
+Style/GuardClause:
+  Enabled: true
+  Exclude:
+    - app/contexts/shared_context/value_objects/base_value_object.rb
+    - app/contexts/payments_context/disbursements/use_cases/create_disbursement_use_case.rb
+
+Style/IfUnlessModifier:
+  Enabled: true
+  Exclude:
+    - lib/tasks/payments_context/**/*.rake
+
+# Metrics
+
+Metrics/ParameterLists:
+  Enabled: true
+  Exclude:
+    - app/contexts/**/entities/*_entity.rb
+
+Metrics/MethodLength:
+  Enabled: true
+  CountAsOne: ["array", "hash", "method_call", "heredoc"]
+  Exclude:
+    - app/contexts/payments_context/orders/jobs/import_orders_job.rb
+
+Metrics/BlockLength:
+  Enabled: true
+  CountAsOne: ["array", "hash", "method_call", "heredoc"]
+
+Metrics/AbcSize:
+  Enabled: true
+  CountRepeatedAttributes: false
+  Exclude:
+    - app/contexts/payments_context/orders/jobs/import_orders_job.rb
+    - app/contexts/payments_context/disbursements/entities/disbursement_entity.rb
+    - app/contexts/payments_context/disbursements/use_cases/create_disbursement_use_case.rb
+
+# Naming
+
+Naming/VariableNumber:
+  Enabled: true
+  EnforcedStyle: snake_case
+  AllowedIdentifiers: ["uuid_v4"]
+
+# Lint
+
+Lint/UselessAssignment:
+  Enabled: true
+  Exclude:
+    - spec/contexts/payments_context/merchants/repositories/postgres_merchant_repository_spec.rb
+
+# Rails
+
+Rails/SkipsModelValidations:
+  Enabled: true
+  AllowedMethods: ["update_all"]
+
+Rails/DynamicFindBy:
+  Enabled: true
+  AllowedReceivers:
+    - repository
+
+# RSpec
+
+RSpec/DescribeClass:
+  Enabled: true
+  Exclude:
+    - spec/lib/tasks/**/*
+
+RSpec/MultipleMemoizedHelpers:
+  Enabled: true
+  Exclude:
+    - spec/support/shared_contexts/rake.rb
+
+RSpec/ContextWording:
+  Enabled: true
+  Exclude:
+    - spec/support/shared_contexts/rake.rb
+
+RSpec/ExampleLength:
+  Enabled: true
+  CountAsOne: ["array", "hash", "method_call", "heredoc"]
+  Max: 10
+  Exclude:
+    - spec/lib/tasks/payments_context/disbursements/generate_spec.rb
+    - spec/contexts/payments_context/orders/repositories/postgres_order_repository_spec.rb
+    - spec/contexts/payments_context/order_commissions/repositories/postgres_order_commission_repository_spec.rb
+
+RSpec/MessageSpies:
+  Enabled: true
+  EnforcedStyle: receive
+
+RSpec/Rails/TravelAround:
+  Enabled: false
+
+RSpec/MultipleExpectations:
+  Enabled: true
+  Exclude:
+    - spec/lib/tasks/payments_context/disbursements/generate_spec.rb
